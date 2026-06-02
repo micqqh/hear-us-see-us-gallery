@@ -180,7 +180,7 @@ body{background:#E8D5B0;color:var(--ink);font-family:'DM Sans',sans-serif;overfl
 </div>
 
 <canvas id="canvas"></canvas>
-<div id="vignette"></div>
+<div id="vignette" onclick="if(panelOpen)closePanel()"></div>
 <div id="crosshair"></div>
 <div id="keys-hint">W / ↑ Move forward &nbsp;·&nbsp; S / ↓ Move back &nbsp;·&nbsp; Drag mouse to look &nbsp;·&nbsp; Click artwork to view</div>
 
@@ -189,6 +189,10 @@ body{background:#E8D5B0;color:var(--ink);font-family:'DM Sans',sans-serif;overfl
   <button class="hud-btn" onclick="move('forward')">Forward</button>
   <button class="hud-btn" onclick="move('back')">Back</button>
   <button class="hud-btn icon" onclick="move('right')">▶</button>
+</div>
+
+<div id="progress-counter" style="position:fixed;top:1.5rem;right:1.5rem;display:none;background:rgba(253,246,233,.88);border:1px solid rgba(139,105,20,.2);padding:8px 16px;font-size:11px;color:#8B6914;letter-spacing:.15em;backdrop-filter:blur(8px);z-index:50;">
+  <span id="progress-text"></span>
 </div>
 
 <div id="artwork-label">
@@ -230,7 +234,7 @@ const ARTWORKS = [
     medium: "Photography (Digitally Manipulated)",
     dimensions: "Variable dimensions",
     category: "landscape",
-    images: [""],
+    images: ["https://i.imgur.com/KRYb2qW.jpeg","https://i.imgur.com/Lfw20YL.jpeg","https://i.imgur.com/ebxssKN.jpeg","https://i.imgur.com/MYpHGIx.jpeg","https://i.imgur.com/l5v76HY.jpeg"],
     description: "Erased Slogans is an ongoing series that uses archival protest photographs from the Martial Law era. Dalena digitally removes the text from protest placards, leaving blank signs held by demonstrators. The deliberate erasure creates a haunting sense of absence and incompleteness.",
     relevance: "The artwork symbolizes how voices — particularly those of marginalized groups such as women and youth — can be silenced, ignored, or erased from historical and societal narratives. It serves as a reminder that empowerment begins with the ability to speak, express, and be heard.",
     analysis: "Negative space created by the blank placards becomes the focal point, emphasizing silence and suppression. Strong contrast between detailed black-and-white scenes and blank signs draws attention to what is missing. Emphasis falls on the erasure itself rather than the people depicted."
@@ -242,7 +246,7 @@ const ARTWORKS = [
     medium: "Sculpture (Cold-cast marble)",
     dimensions: "Life-sized triptych",
     category: "portrait",
-    images: [""],
+    images: ["https://i.imgur.com/893VmYl.jpeg"],
     description: "A triptych of life-sized sculptures created from life-casts of actual female bodies, representing the maiden, mother, and elder as sacred Buddhist-inspired figures. The three figures celebrate female experience across every stage of life.",
     relevance: "The sculpture challenges traditional views of the female body by portraying female strength, bodily autonomy, and spiritual wisdom as sacred. It affirms that a woman's worth is not defined by external standards or patriarchal structures, encouraging young women to recognize their inherent value.",
     analysis: "Realistic three-dimensional form created from life-casts grounds the work in bodily truth. Smooth marble surfaces contrast with rough stone-like pedestals, balancing divinity and earthly existence. Unity is achieved through consistent material and shared theme across all three figures."
@@ -254,7 +258,7 @@ const ARTWORKS = [
     medium: "Oil on Canvas and Sawali Panels",
     dimensions: "Mixed media panels",
     category: "landscape",
-    images: [""],
+    images: ["https://i.imgur.com/L1yAzAK.jpeg"],
     description: "The title translates to 'There is Still a Tomorrow, Mother.' Cajipe-Endaya combines oil painting with sawali — woven bamboo matting — to depict Filipino women's struggles, strength, and hope during times of political and social difficulty.",
     relevance: "The artwork supports women and youth empowerment by encouraging courage, hope, and resilience. It highlights the important role of women in society and inspires young people to remain strong and speak up during difficult situations.",
     analysis: "The woven bamboo panels introduce rich texture that grounds the work in Filipino material culture. Color and contrast create emotional intensity, while emphasis on expressive figures communicates resilience. Symbolism throughout reinforces themes of hope and endurance."
@@ -265,8 +269,8 @@ const ARTWORKS = [
     year: "1974",
     medium: "Etching (Printmaking)",
     dimensions: "Print on paper",
-    category: "square",
-    images: [""],
+    category: "portrait",
+    images: ["https://i.imgur.com/Sydq2AV.jpeg"],
     description: "Created while Cajipe-Endaya was a Fine Arts student, Kastigo features the repeated phrase 'Que lastima!' (What a pity!) integrated into the visual composition. The printmaking process creates a raw, intentional texture that reinforces the work's message of resistance.",
     relevance: "Kastigo connects to women and youth empowerment because it demonstrates how art can be a form of resistance. The repeated phrase reflects dismissive attitudes often directed toward women and young people who speak out, reclaiming that dismissal as a source of strength.",
     analysis: "Repetition of 'Que lastima!' creates emphasis and rhythmic insistence. Strong etched lines contribute to the work's expressive, urgent quality. The integration of text and image means words function as visual elements, not mere captions, deepening the artwork's impact."
@@ -278,33 +282,11 @@ const ARTWORKS = [
     medium: "Film (Drama / Coming-of-Age)",
     dimensions: "138 minutes",
     category: "panoramic",
-    images: [""],
+    images: ["https://i.imgur.com/rhhPAT7.jpeg"],
     description: "Moral follows four young Filipino women — Joey, Kathy, Sylvia, and Maritess — as they navigate life after college amid the Martial Law era. Written by Ricky Lee, the film openly addresses topics considered taboo at the time: abortion, rape, gender inequality, and double standards. It is the second in Diaz-Abaya's loose feminist film trilogy.",
     relevance: "The film centers on young women confronting pressures to be silent, modest, and accepting of mistreatment — the exact pressures our advocacy seeks to challenge. Diaz-Abaya interrogated why Filipinas are predisposed to being martyrs, and showed four women who ultimately become whole as persons through their own decisions.",
     analysis: "The loose, observational cinematography mirrors the unstructured reality of the women's lives. Contrast between intimate personal stories and the political backdrop of Martial Law shows how systems of power affect women's everyday choices. Unity is achieved through the constant thread of female friendship that holds all four storylines together."
   },
-  {
-    title: "Artwork Title Here",
-    artist: "Artist Name",
-    year: "Year",
-    medium: "Medium",
-    dimensions: "Size or Duration",
-    images: [""],
-    description: "Description here.",
-    relevance: "Relevance to advocacy here.",
-    analysis: "Art elements and principles here."
-  },
-  {
-    title: "Artwork Title Here",
-    artist: "Artist Name",
-    year: "Year",
-    medium: "Medium",
-    dimensions: "Size or Duration",
-    images: [""],
-    description: "Description here.",
-    relevance: "Relevance to advocacy here.",
-    analysis: "Art elements and principles here."
-  }
 ];
 
 // ═══════════════════════════════════════════
@@ -605,10 +587,10 @@ scene.add(titleFrame);
 
 // ── ARTWORK FRAMES ──
 const FRAME_SIZES = {
-  landscape:  { FW: 2.8, FH: 2.0 },
-  portrait:   { FW: 1.8, FH: 2.6 },
-  square:     { FW: 2.2, FH: 2.2 },
-  panoramic:  { FW: 3.6, FH: 1.6 },
+  landscape:  { FW: 2.6, FH: 1.8 },
+  portrait:   { FW: 1.7, FH: 2.4 },
+  square:     { FW: 2.0, FH: 2.0 },
+  panoramic:  { FW: 3.2, FH: 1.5 },
 };
 const CENTER_Y = 2.8;
 const artworkMeshes = [];
@@ -677,8 +659,8 @@ function buildFrame(artIndex) {
   matBoard.position.z=0.044;
   group.add(matBoard);
 
-  // position on wall
-  const wallX = side*(HALL_W/2-0.05);
+  // position on wall — flush and centered regardless of frame size
+  const wallX = side*(HALL_W/2-0.06);
   group.position.set(wallX, CENTER_Y, z);
   group.rotation.y = side===-1 ? Math.PI/2 : -Math.PI/2;
   scene.add(group);
@@ -746,11 +728,41 @@ function buildFrame(artIndex) {
 
 ARTWORKS.forEach((_,i) => buildFrame(i));
 
+// End of gallery sign
+const endCanvas = document.createElement('canvas');
+endCanvas.width=512; endCanvas.height=256;
+const ec=endCanvas.getContext('2d');
+ec.fillStyle='#E8D5B0'; ec.fillRect(0,0,512,256);
+ec.strokeStyle='rgba(139,105,20,0.4)'; ec.lineWidth=2; ec.strokeRect(3,3,506,250);
+ec.fillStyle='#8B6914'; ec.font="500 14px 'DM Sans',sans-serif"; ec.textAlign='center';
+ec.fillText('END OF GALLERY',256,60);
+ec.fillStyle='#2C1810'; ec.font="300 38px 'Georgia',serif";
+ec.fillText('Thank you for visiting',256,120);
+ec.fillStyle='rgba(92,61,46,0.7)'; ec.font="italic 300 20px 'Georgia',serif";
+ec.fillText('Hear Us, See Us — Group 14',256,165);
+ec.strokeStyle='rgba(139,105,20,0.3)'; ec.lineWidth=1;
+ec.beginPath(); ec.moveTo(60,88); ec.lineTo(452,88); ec.stroke();
+const endTex=new THREE.CanvasTexture(endCanvas);
+const endSign=new THREE.Mesh(
+  new THREE.PlaneGeometry(4,2),
+  new THREE.MeshStandardMaterial({map:endTex,roughness:0.7})
+);
+endSign.position.set(0,2.8,Z0+0.5);
+scene.add(endSign);
+const endFrame=new THREE.Mesh(
+  new THREE.BoxGeometry(4.2,2.2,0.05),
+  new THREE.MeshStandardMaterial({color:0xC9A84C,roughness:0.2,metalness:0.9})
+);
+endFrame.position.set(0,2.8,Z0+0.46);
+scene.add(endFrame);
+
 // ── CAMERA STATE ──
 const cam = {
   yaw: Math.PI, targetYaw: Math.PI,
   pitch: 0, targetPitch: 0,
   posZ: 14, targetPosZ: 14,
+  posX: 0, targetPosX: 0,
+  currentY: 1.65,
   dragging: false, lastX:0, lastY:0
 };
 
@@ -797,7 +809,7 @@ function move(dir) {
 // ── RAYCASTING ──
 const raycaster = new THREE.Raycaster();
 const mouse2 = new THREE.Vector2();
-let panelOpen=false, currentPanelIndex=0, mouseMoved=false, hoverFrame=null;
+let panelOpen=false, currentPanelIndex=0, mouseMoved=false, hoverFrame=null, examineMode=false;
 let currentImageIndex = 0;
 let savedCamPos={x:0, z:14, yaw:Math.PI};
 let examineTarget={x:0, z:0, yaw:Math.PI};
@@ -842,6 +854,8 @@ canvas.addEventListener('click', e=>{
 // ── PANEL ──
 function openPanel(idx){
   currentPanelIndex=idx;
+  document.getElementById('progress-text').textContent=`${idx+1} OF ${ARTWORKS.length}`;
+  document.getElementById('progress-counter').style.display='block';
   renderPanel();
   panelOpen=true;
   examineMode=true;
@@ -881,6 +895,7 @@ function openPanel(idx){
 function closePanel(){
   document.getElementById('panel').classList.remove('open');
   document.getElementById('vignette').classList.remove('active');
+  document.getElementById('progress-counter').style.display='none';
   panelOpen=false;
   examineMode=false;
   cam.targetPosX = savedCamPos.x;
@@ -1018,10 +1033,13 @@ function enterMuseum(){
   document.getElementById('crosshair').classList.add('show');
   animate();
   setTimeout(()=>{document.getElementById('keys-hint').style.opacity='0.4';},5000);
+  setTimeout(()=>{document.getElementById('keys-hint').style.opacity='0';},10000);
 }
 document.getElementById('entry').addEventListener('click', enterMuseum);
 document.getElementById('entry').addEventListener('keydown', e=>{if(e.key==='Enter'||e.key===' ')enterMuseum();});
 
+// render one frame immediately so canvas isn't blank
+renderer.render(scene, camera);
 document.fonts.ready.then(()=>document.getElementById('loading').classList.add('done'));
 setTimeout(()=>document.getElementById('loading').classList.add('done'),2500);
 </script>
